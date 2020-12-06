@@ -22,7 +22,7 @@ footer {
 	width: 100%;
 	display: inline-block;
 	height: 70px;
-	background-color: #999;
+	background-color: #0e1421;
 	font-family: Raleway, sans-serif;
 	flex-shrink: 0;
 }
@@ -85,7 +85,7 @@ footer .social a:hover {
 	width: 20%;
 }
 .support {
-	background-color: #6dcd9a;
+	background-color: #0e1f21;
 	font-size: 0.8em;
 	width: 40%;
 }
