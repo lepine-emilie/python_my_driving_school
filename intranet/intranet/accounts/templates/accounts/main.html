@@ -11,41 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/superhero/bootstrap.min.css" integrity="sha512-tJAtzRPzKacKvYxMF7zn+nnr1d4nYuMiAC9/6Pqts2Y9k4sokd8kzL74IPW7xEeFT1APVjnExZtplMyY5fJvzA==" crossorigin="anonymous" /></head>
 <link rel="stylesheet" href="../static/css/style.css">
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">GDM</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Se connecter</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+{% include  'accounts/navbar.html' %}
 <hr>
 <div class="content">
     {% block content%}
@@ -53,16 +19,6 @@
     {% endblock %}
 </div>
 <hr>
-<footer>
-    <div class="copyright">
-        <p>&copy 2020 - Galy's Driving Machine</p>
-    </div>
-    <div class="social">
-        <a href="#" class="support">Contact Us</a>
-        <a href="#" class="face">f</a>
-        <a href="#" class="tweet">t</a>
-        <a href="#" class="linked">in</a>
-    </div>
-</footer>
+{% include  'accounts/footer.html' %}
 </body>
 </html>
