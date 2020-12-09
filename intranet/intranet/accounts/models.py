@@ -30,6 +30,8 @@ class Bundle(models.Model):
     name = models.CharField(max_length=255, null=False)
     hours = models.IntegerField(null=False)
     price = models.FloatField(null=False)
+    description = models.TextField(null=True)
+    picture_name = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return self.name

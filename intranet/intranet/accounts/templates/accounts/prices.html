@@ -6,36 +6,19 @@
 {% block content %}
 <div class="container">
     <div class="card-deck">
+        {% for i in bundles %}
         <div class="card">
-            <img src="../../../static/img/code-de-la-route.jpg" class="card-img-top" alt="Code de la Route" width="350px" height="280px">
+            <img src="../../../static/img/{{i.picture_name}}" class="card-img-top" alt="Permis" width="350px" height="280px">
             <div class="card-body">
-                <h5 class="card-title">Le Code</h5>
-                <p class="card-text">Vous voulez faire que le code et vous n'avez pas besoin d'heure de conduite.</p>
+
+                <h5 class="card-title">{{i.name}}</h5>
+                <p class="card-text">{{i.description}}</p>
             </div>
             <div class="card-footer">
-                <small class="text-muted"> <br>Forfait à 59.99 Euros <br><br></small>
+                <small class="text-muted">Forfait à {{i.price}} Euros (Les forfaits contiennent 20h de conduite. Frais supplémentaires à prévoir si plus d'heures sont nécéssaires) </small>
             </div>
         </div>
-        <div class="card">
-            <img src="../../../static/img/permis-lelynx.png" class="card-img-top" alt="Permis" width="350px" height="280px">
-            <div class="card-body">
-                <h5 class="card-title">La Conduite</h5>
-                <p class="card-text">Pour ceux qui ont déjà le code et qui veulent faire leur conduite avec nous.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Forfait a 659.99 Euros (contenant 20h de conduite. Frais supplémentaires à prévoir si plus d'heures sont nécéssaires)</small>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../../../static/img/recuperer-son-permis-de-conduire-francais-apres-une-expatriation-1.jpg" class="card-img-top" alt="Permis de Conduire" width="350px" height="280px">
-            <div class="card-body">
-                <h5 class="card-title">Forfait Code + Conduite</h5>
-                <p class="card-text">La Totale. Le code et la conduite</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Forfait a 699.99 Euros (contenant 20h de conduite. Frais supplémentaires à prévoir si plus d'heures sont nécéssaires)</small>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
-    {% endblock %}
+{% endblock %}

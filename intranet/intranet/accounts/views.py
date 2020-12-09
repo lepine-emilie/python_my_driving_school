@@ -6,7 +6,13 @@ from .models import *
 
 def home(request):
     return render(request, 'accounts/dashboard.html')
+
+
 def prices(request):
-    return render(request, 'accounts/prices.html')
+    bundles = Bundle.objects.all()
+
+    return render(request, 'accounts/prices.html', {'bundles': bundles})
+
+
 def login(request):
     return render(request, 'accounts/login.html')
