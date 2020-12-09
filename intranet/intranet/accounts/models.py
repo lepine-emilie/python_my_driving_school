@@ -20,6 +20,7 @@ class User(models.Model):
     hours_total = models.IntegerField(null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
+    password_changed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.last_name
