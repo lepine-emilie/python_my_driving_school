@@ -41,3 +41,9 @@ class Schedule(models.Model):
     date_start = models.DateTimeField()
     instructor = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='instructor')
     student = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='student')
+
+
+class link(models.Model):
+    instructor = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedInstructor')
+    student = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedStudent')
+
