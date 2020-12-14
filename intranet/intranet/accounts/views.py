@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 from .models import *
-from .forms import CreateUserForm
+from .forms import CreateUserForm, RoleForm
 
 # Create your views here.
 
@@ -61,4 +61,10 @@ def usercreation(request):
 
     context = {'form': form}
     return render(request, 'accounts/usercreation.html', context)
+
+
+def createRole(request):
+    form = RoleForm()
+    context = {'form': form}
+    return render(request, 'accounts/create_role.html', context)
 

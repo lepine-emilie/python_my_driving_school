@@ -10,7 +10,7 @@ class Role(models.Model):
         return self.name
 
 
-class User(models.Model):
+class Utilisateur(models.Model):
     first_name = models.CharField(max_length=255, null=False)
     last_name = models.CharField(max_length=255, null=False)
     phone = models.CharField(max_length=255, null=True)
@@ -39,13 +39,13 @@ class Bundle(models.Model):
 
 class Schedule(models.Model):
     date_start = models.DateTimeField()
-    instructor = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='instructor')
-    student = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='student')
+    instructor = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='instructor')
+    student = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='student')
 
 
 class link(models.Model):
-    instructor = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedInstructor')
-    student = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedStudent')
+    instructor = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='linkedInstructor')
+    student = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='linkedStudent')
 
     def __str__(self):
         return self.student
