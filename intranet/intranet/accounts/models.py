@@ -47,3 +47,6 @@ class link(models.Model):
     instructor = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedInstructor')
     student = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedStudent')
 
+    def __str__(self):
+        return self.student
+
