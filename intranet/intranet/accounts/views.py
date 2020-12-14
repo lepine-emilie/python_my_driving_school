@@ -48,6 +48,7 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+
 def usercreation(request):
     form = CreateUserForm()
 
