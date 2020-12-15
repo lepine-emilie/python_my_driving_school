@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 # Create your forms here.
-from .models import Role
+from .models import Role, Bundle
 
 
 class CreateUserForm(UserCreationForm):
@@ -16,5 +16,11 @@ class CreateUserForm(UserCreationForm):
 class RoleForm(ModelForm):
     class Meta:
         model = Role
+        fields = '__all__'
+
+
+class BundleForm(ModelForm):
+    class Meta:
+        model = Bundle
         fields = '__all__'
 

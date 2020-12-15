@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 from .models import *
-from .forms import CreateUserForm, RoleForm
+from .forms import CreateUserForm, RoleForm, BundleForm
 
 # Create your views here.
 
@@ -96,4 +96,39 @@ def deleteRole(request, pk):
     else:
         context = {'role': role}
         return render(request, 'accounts/delete_role.html', context)
+
+
+def createBundle(request):
+    if request.method == 'POST':
+        form = BundleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # redirigera vers le panel admin quand il sera fait
+    else:
+        form = BundleForm()
+        context = {'form': form}
+        return render(request, 'accounts/create_bundle.html', context)
+
+
+def updateBundle(request, pk):
+    bundle = Bundle.objects.get(id=pk)
+    form = BundleForm(instance=bundle)
+    if request.method == 'POST':
+        form = BundleForm(request.POST, instance=bundle)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # redirigera vers le panel admin quand il sera fait
+    else:
+        context = {'form': form}
+        return render(request, 'accounts/create_bundle.html', context)
+
+
+def deleteBundle(request, pk):
+    bundle = Bundle.objects.get(id=pk)
+    if request.method == "POST":
+        bundle.delete()
+        return render(request, '/')  # redirigera vers le panel admin quand il sera fait
+    else:
+        context = {'Bundle': bundle}
+        return render(request, 'accounts/delete_bundle.html', context)
 
