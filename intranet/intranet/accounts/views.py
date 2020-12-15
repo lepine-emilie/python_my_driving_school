@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 
-from .models import *
-from .forms import CreateUserForm, RoleForm, BundleForm
+from .models import Bundle, Role
+from .forms import CreateUserForm, UserInfoForm, RoleForm, BundleForm
 
 # Create your views here.
 
@@ -51,9 +51,11 @@ def logoutUser(request):
 
 def usercreation(request):
     form = CreateUserForm()
+    form2 = UserInfoForm()
 
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
+        # form2 = UserInfoForm(request.POST)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('email')
