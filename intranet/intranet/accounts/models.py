@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -10,20 +10,18 @@ class Role(models.Model):
         return self.name
 
 
-class Utilisateur(models.Model):
-    first_name = models.CharField(max_length=255, null=False)
-    last_name = models.CharField(max_length=255, null=False)
-    phone = models.CharField(max_length=255, null=True)
-    email = models.CharField(max_length=255, null=False)
-    password = models.CharField(max_length=255, null=True)
+class UserInfo(models.Model):
+    phone = models.CharField(max_length=255, null=False)
+    address = models.CharField(max_length=255, null=False)
+    postal_code = models.CharField(max_length=255, null=False)
+    city = models.CharField(max_length=255, null=False)
     hours_left = models.IntegerField(null=True)
     hours_total = models.IntegerField(null=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
-    password_changed = models.BooleanField(default=False)
+    # user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='user')
 
     def __str__(self):
-        return self.last_name
+        return User.username
 
 
 class Bundle(models.Model):
@@ -39,13 +37,13 @@ class Bundle(models.Model):
 
 class Schedule(models.Model):
     date_start = models.DateTimeField()
-    instructor = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='instructor')
-    student = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='student')
+    instructor = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='instructor')
+    student = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='student')
 
 
 class link(models.Model):
-    instructor = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='linkedInstructor')
-    student = models.ForeignKey(Utilisateur, null=True, on_delete=models.CASCADE, related_name='linkedStudent')
+    instructor = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedInstructor')
+    student = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='linkedStudent')
 
     def __str__(self):
         return self.student
