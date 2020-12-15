@@ -64,7 +64,36 @@ def usercreation(request):
 
 
 def createRole(request):
-    form = RoleForm()
-    context = {'form': form}
-    return render(request, 'accounts/create_role.html', context)
+    if request.method == 'POST':
+        form = RoleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # redirigera vers le panel admin quand il sera fait
+    else:
+        form = RoleForm()
+        context = {'form': form}
+        return render(request, 'accounts/create_role.html', context)
+
+
+def updateRole(request, pk):
+    role = Role.objects.get(id=pk)
+    form = RoleForm(instance=role)
+    if request.method == 'POST':
+        form = RoleForm(request.POST, instance=role)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # redirigera vers le panel admin quand il sera fait
+    else:
+        context = {'form': form}
+        return render(request, 'accounts/create_role.html', context)
+
+
+def deleteRole(request, pk):
+    role = Role.objects.get(id=pk)
+    if request.method == "POST":
+        role.delete()
+        return render(request, '/')  # redirigera vers le panel admin quand il sera fait
+    else:
+        context = {'role': role}
+        return render(request, 'accounts/delete_role.html', context)
 
