@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 
 
 from .models import Bundle, Role
@@ -149,7 +149,8 @@ def deleteBundle(request, pk):
 
 def adminPanel(request):
     bundles = Bundle.objects.all()
-    roles = Role.objects.all().order_by('id')[:10]
-    context = {'bundles': bundles, 'roles': roles}
+    roles = Role.objects.all().order_by('id')[:5]
+    users = get_user_model().objects.all()
+    context = {'bundles': bundles, 'roles': roles, 'users': users}
     return render(request, 'accounts/admin_panel.html', context)
 
