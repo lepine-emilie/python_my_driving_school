@@ -55,13 +55,13 @@ def usercreation(request):
 
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
-        # form2 = UserInfoForm(request.POST)
+        form2 = UserInfoForm(request.POST)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('email')
             messages.success(request, 'Le compte a bien été créé pour: ' + user)
 
-    context = {'form': form}
+    context = {'form': form, 'form2': form2}
     return render(request, 'accounts/usercreation.html', context)
 
 
