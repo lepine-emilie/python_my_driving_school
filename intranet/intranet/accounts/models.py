@@ -18,11 +18,10 @@ class UserInfo(models.Model):
     hours_left = models.IntegerField(null=True)
     hours_total = models.IntegerField(null=True)
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL)
-    # user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='user')
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='user')
 
     def __str__(self):
-        return User.username
-
+        return self.user.email
 
 class Bundle(models.Model):
     name = models.CharField(max_length=255, null=False)
