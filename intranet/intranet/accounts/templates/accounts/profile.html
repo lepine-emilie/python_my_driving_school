@@ -1,1 +1,9 @@
 <!--TODO ajouter les infos et le style de la page profile d'utilisateur (utilisée par l'utilisateur et par les roles autorisés a voir les infos)-->
+
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static '/css/profile.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+{% endblock %}
+
