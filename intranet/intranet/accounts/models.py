@@ -23,6 +23,7 @@ class UserInfo(models.Model):
     def __str__(self):
         return self.user.email
 
+
 class Bundle(models.Model):
     name = models.CharField(max_length=255, null=False)
     hours = models.IntegerField(null=False)

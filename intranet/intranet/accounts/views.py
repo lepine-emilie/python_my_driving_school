@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 
 
-from .models import Bundle, Role
+from .models import Bundle, Role, UserInfo
 from .forms import CreateUserForm, UserInfoForm, RoleForm, BundleForm
 
 # Create your views here.
@@ -153,4 +153,13 @@ def adminPanel(request):
     users = get_user_model().objects.all()
     context = {'bundles': bundles, 'roles': roles, 'users': users}
     return render(request, 'accounts/admin_panel.html', context)
+
+
+def singleProfile(request, pk):
+    user = get_user_model().objects.get(id=pk)
+    user_info = UserInfo.objects.filter(user_id=pk).first()
+    logged_user_role = UserInfo.objects.filter(user_id=request.user.id).first()
+    context = {'user': user, 'user_info': user_info, 'logged_user_role': logged_user_role}
+    return render(request, 'accounts/profile.html', context)
+
 

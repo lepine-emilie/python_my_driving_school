@@ -17,5 +17,6 @@ urlpatterns = [
     path('delete_bundle/<str:pk>/', views.deleteBundle, name='delete_bundle'),
     path('show_role/', views.showRole, name='show_role'),
     path('show_bundle/', views.showBundle, name='show_bundle'),
+    path('view_profile/<str:pk>/', views.singleProfile, name='single_profile'),
 ]
 
