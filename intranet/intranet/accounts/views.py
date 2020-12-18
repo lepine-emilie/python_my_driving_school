@@ -55,7 +55,6 @@ def usercreation(request):
 
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
-        # form2 = UserInfoForm(request.POST)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('email')
