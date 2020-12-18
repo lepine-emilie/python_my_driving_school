@@ -36,7 +36,11 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            logged_user_role = UserInfo.objects.filter(user_id=request.user.id).first()
+            if logged_user_role.role_id > 2:
+                return redirect('admin_panel')
+            else:
+                return redirect('single_profile', request.user.id)
         else:
             messages.info(request, 'Les identifiants ne correspondent pas à ceux que nous avons')
 

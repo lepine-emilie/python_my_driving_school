@@ -11,30 +11,34 @@
 <div class="container">
     <h3>Profil</h3>
     <div class="row">
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                {{user.first_name}} {{user.last_name}}<br> Adresse mail : {{user.email}}
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    {{user.first_name}} {{user.last_name}}<br> Adresse mail : {{user.email}}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Numéro de téléphone</b> : {{user_info.phone}}</li>
+                    <li class="list-group-item"><b>Adresse</b> : {{user_info.address}}</li>
+                    <li class="list-group-item"><b>Ville</b> : {{user_info.city}}</li>
+                    <li class="list-group-item"><b>Code Postal</b>: {{user_info.postal_code}}</li>
+                    {% if logged_user_role.role_id > 2 %}
+                    <li class="list-group-item">
+                        <a href="#" class="btn btn-primary btn-sm">Mettre à jour</a>
+                        <a href="#" class="btn btn-danger btn-sm">Supprimer</a></li>
+                    {% endif %}
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b>Numéro de téléphone</b> : {{user_info.phone}}</li>
-                <li class="list-group-item"><b>Adresse</b> : {{user_info.address}}</li>
-                <li class="list-group-item"><b>Ville</b> : {{user_info.city}}</li>
-                <li class="list-group-item"><b>Code Postal</b>: {{user_info.postal_code}}</li>
-                {% if logged_user_role.role_id > 2 %}
-                <li class="list-group-item">
-                    <a href="#" class="btn btn-primary btn-sm">Mettre à jour</a>
-                    <a href="#" class="btn btn-danger btn-sm">Supprimer</a></li>
-                {% endif %}
-            </ul>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-               <br><b>Heures</b>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <br><b>Heures</b>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Heures Restantes : {{user_info.hours_left}}</li>
+                    <li class="list-group-item">Heures Totales : {{user_info.hours_total}}</li>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Heures Restantes : {{user_info.hours_left}}</li>
-                <li class="list-group-item">Heures Totales : {{user_info.hours_total}}</li>
-            </ul>
         </div>
     </div>
     <br>
