@@ -5,7 +5,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 
+from django.contrib.auth.decorators import login_required
 
+from .decorators import unauthenticated_user
 from .models import Bundle, Role, UserInfo
 from .forms import CreateUserForm, UserInfoForm, RoleForm, BundleForm
 
@@ -26,6 +28,7 @@ def prices(request):
     return render(request, 'accounts/prices.html', {'bundles': bundles})
 
 
+@unauthenticated_user
 def loginPage(request):
 
     if request.method == "POST":
@@ -48,11 +51,13 @@ def loginPage(request):
     return render(request, 'accounts/login.html', context)
 
 
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect('login')
 
 
+@login_required(login_url='login')
 def usercreation(request):
     form = CreateUserForm()
     form2 = UserInfoForm()
@@ -68,12 +73,14 @@ def usercreation(request):
     return render(request, 'accounts/usercreation.html', context)
 
 
+@login_required(login_url='login')
 def showRole(request):
     roles = Role.objects.get()
     context = {'roles': roles}
     return render(request, 'accounts/show_role.html', context)
 
 
+@login_required(login_url='login')
 def createRole(request):
     if request.method == 'POST':
         form = RoleForm(request.POST)
@@ -86,6 +93,7 @@ def createRole(request):
         return render(request, 'accounts/create_role.html', context)
 
 
+@login_required(login_url='login')
 def updateRole(request, pk):
     role = Role.objects.get(id=pk)
     form = RoleForm(instance=role)
@@ -99,6 +107,7 @@ def updateRole(request, pk):
         return render(request, 'accounts/create_role.html', context)
 
 
+@login_required(login_url='login')
 def deleteRole(request, pk):
     role = Role.objects.get(id=pk)
     if request.method == "POST":
@@ -109,12 +118,14 @@ def deleteRole(request, pk):
         return render(request, 'accounts/delete_role.html', context)
 
 
+@login_required(login_url='login')
 def showBundle(request):
     bundles = Bundle.objects.get()
     context = {'bundles': bundles}
     return render(request, 'accounts/show_bundle.html', context)
 
 
+@login_required(login_url='login')
 def createBundle(request):
     if request.method == 'POST':
         form = BundleForm(request.POST)
@@ -127,6 +138,7 @@ def createBundle(request):
         return render(request, 'accounts/create_bundle.html', context)
 
 
+@login_required(login_url='login')
 def updateBundle(request, pk):
     bundle = Bundle.objects.get(id=pk)
     form = BundleForm(instance=bundle)
@@ -140,6 +152,7 @@ def updateBundle(request, pk):
         return render(request, 'accounts/create_bundle.html', context)
 
 
+@login_required(login_url='login')
 def deleteBundle(request, pk):
     bundle = Bundle.objects.get(id=pk)
     if request.method == "POST":
@@ -150,6 +163,7 @@ def deleteBundle(request, pk):
         return render(request, 'accounts/delete_bundle.html', context)
 
 
+@login_required(login_url='login')
 def adminPanel(request):
     bundles = Bundle.objects.all()
     roles = Role.objects.all().order_by('id')[:5]
@@ -158,6 +172,7 @@ def adminPanel(request):
     return render(request, 'accounts/admin_panel.html', context)
 
 
+@login_required(login_url='login')
 def singleProfile(request, pk):
     user = get_user_model().objects.get(id=pk)
     user_info = UserInfo.objects.filter(user_id=pk).first()
