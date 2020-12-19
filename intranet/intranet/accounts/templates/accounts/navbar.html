@@ -29,7 +29,7 @@
                     {% else %}
                     <a class="dropdown-item" href="{% url 'login' %}">Se connecter</a>
                     {% endif %}
-                    {% if request.user.userinfo.id_role > 2%}
+                    {% if admin == True %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{% url 'admin_panel'%}">Panneau D'administration</a>
                     {% endif %}

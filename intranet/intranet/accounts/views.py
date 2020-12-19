@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 
 from django.contrib.auth.decorators import login_required
 
-from .decorators import unauthenticated_user
+from .decorators import unauthenticated_user, allowed_users
 from .models import Bundle, Role, UserInfo
 from .forms import CreateUserForm, UserInfoForm, RoleForm, BundleForm
 
@@ -58,6 +58,7 @@ def logoutUser(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['secretary', 'admin'])
 def usercreation(request):
     form = CreateUserForm()
     form2 = UserInfoForm()
@@ -74,6 +75,7 @@ def usercreation(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['secretary', 'admin'])
 def showRole(request):
     roles = Role.objects.get()
     context = {'roles': roles}
@@ -81,6 +83,7 @@ def showRole(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['admin'])
 def createRole(request):
     if request.method == 'POST':
         form = RoleForm(request.POST)
@@ -94,6 +97,7 @@ def createRole(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['admin'])
 def updateRole(request, pk):
     role = Role.objects.get(id=pk)
     form = RoleForm(instance=role)
@@ -108,6 +112,7 @@ def updateRole(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['admin'])
 def deleteRole(request, pk):
     role = Role.objects.get(id=pk)
     if request.method == "POST":
@@ -119,6 +124,7 @@ def deleteRole(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['secretary', 'admin'])
 def showBundle(request):
     bundles = Bundle.objects.get()
     context = {'bundles': bundles}
@@ -126,6 +132,7 @@ def showBundle(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['secretary', 'admin'])
 def createBundle(request):
     if request.method == 'POST':
         form = BundleForm(request.POST)
@@ -139,6 +146,7 @@ def createBundle(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['secretary', 'admin'])
 def updateBundle(request, pk):
     bundle = Bundle.objects.get(id=pk)
     form = BundleForm(instance=bundle)
@@ -153,6 +161,7 @@ def updateBundle(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['secretary', 'admin'])
 def deleteBundle(request, pk):
     bundle = Bundle.objects.get(id=pk)
     if request.method == "POST":
@@ -164,6 +173,7 @@ def deleteBundle(request, pk):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed=['secretary', 'admin'])
 def adminPanel(request):
     bundles = Bundle.objects.all()
     roles = Role.objects.all().order_by('id')[:5]
@@ -174,10 +184,17 @@ def adminPanel(request):
 
 @login_required(login_url='login')
 def singleProfile(request, pk):
-    user = get_user_model().objects.get(id=pk)
-    user_info = UserInfo.objects.filter(user_id=pk).first()
-    logged_user_role = UserInfo.objects.filter(user_id=request.user.id).first()
-    context = {'user': user, 'user_info': user_info, 'logged_user_role': logged_user_role}
+    group = request.user.groups.all()[0].name
+    admin = False
+    if group == 'student':
+        user = get_user_model().objects.get(id=request.user.id)
+        user_info = UserInfo.objects.filter(user_id=request.user.id).first()
+    else:
+        user = get_user_model().objects.get(id=pk)
+        user_info = UserInfo.objects.filter(user_id=pk).first()
+    if group == 'admin' or group == 'secretary':
+        admin = True
+    context = {'user': user, 'user_info': user_info, 'admin': admin}
     return render(request, 'accounts/profile.html', context)
 
 
