@@ -23,11 +23,16 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
                 <div class="dropdown-menu">
+                    {% if request.user.id is not None %}
+                    <a class="dropdown-item" href="{% url 'single_profile' request.user.id %} ">Profil</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Se deconnecter</a>
+                    {% else %}
                     <a class="dropdown-item" href="{% url 'login' %}">Se connecter</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    {% endif %}
+                    {% if request.user.userinfo.id_role > 2%}
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
+                    <a class="dropdown-item" href="{% url 'admin_panel'%}">Panneau D'administration</a>
+                    {% endif %}
                 </div>
             </li>
         </ul>
