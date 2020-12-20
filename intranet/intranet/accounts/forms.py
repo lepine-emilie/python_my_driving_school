@@ -49,4 +49,7 @@ class ScheduleForm(ModelForm):
     class Meta:
         model = Schedule
         fields = '__all__'
+        widgets = {
+            'date_start': forms.DateTimeInput(attrs={'type': 'datetime-local'})
+        }
 

@@ -10,7 +10,8 @@ from django.contrib.auth.decorators import login_required
 
 from .decorators import unauthenticated_user, allowed_users
 from .models import Bundle, Role, UserInfo, Schedule
-from .forms import CreateUserForm, UserInfoForm, RoleForm, BundleForm
+from .forms import CreateUserForm, UserInfoForm, RoleForm, BundleForm, ScheduleForm
+
 
 # Create your views here.
 
@@ -179,7 +180,8 @@ def adminPanel(request):
     bundles = Bundle.objects.all()
     roles = Group.objects.all().order_by('id')[:5]
     users = get_user_model().objects.all()
-    context = {'bundles': bundles, 'roles': roles, 'users': users}
+    schedules = Schedule.objects.all()
+    context = {'bundles': bundles, 'roles': roles, 'users': users, 'schedules': schedules}
     return render(request, 'accounts/admin_panel.html', context)
 
 
@@ -190,11 +192,11 @@ def singleProfile(request, pk):
     if group == 'student':
         user = get_user_model().objects.get(id=request.user.id)
         user_info = UserInfo.objects.filter(user_id=request.user.id).first()
-        schedule = Schedule.objects.filter(student_id=request.user.id)
+        schedule = Schedule.objects.filter(student_id=request.user.id).all()
     else:
         user = get_user_model().objects.get(id=pk)
         user_info = UserInfo.objects.filter(user_id=pk).first()
-        schedule = Schedule.objects.filter(student_id=pk)
+        schedule = Schedule.objects.filter(student_id=pk).all()
     if group == 'admin' or group == 'secretary':
         admin = True
     context = {'user': user, 'user_info': user_info, 'admin': admin, 'schedule': schedule}
@@ -204,9 +206,18 @@ def singleProfile(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed=['instructor', 'secretary', 'admin'])
 def add_appointments(request):
-    # add user
-    # add instructor
-    # add appointment date and adress
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            if request.user.group == 'admin' or request.user.group == 'secretary':
+                return redirect('admin_panel')
+            else:
+                return redirect('instructor_panel')
+    else:
+        form = ScheduleForm()
+        context = {'form': form}
+        return render(request, 'accounts/create_appointment.html', context)
     context = {}
     return render(request, 'accounts/profile.html', context)
 

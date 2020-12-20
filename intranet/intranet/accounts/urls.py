@@ -11,6 +11,7 @@ urlpatterns = [
     path('create_user/', views.usercreation, name='register'),
     path('create_role/', views.createRole, name='create_role'),
     path('create_bundle/', views.createBundle, name='create_bundle'),
+    path('create_appointment/', views.add_appointments, name='create_appointment'),
     path('update_role/<str:pk>/', views.updateRole, name='update_role'),
     path('update_bundle/<str:pk>/', views.updateBundle, name='update_bundle'),
     path('delete_role/<str:pk>/', views.deleteRole, name='delete_role'),
