@@ -1,10 +1,10 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 # Create your forms here.
-from .models import Role, Bundle, UserInfo
+from .models import Role, Bundle, UserInfo, Schedule
 
 
 class CreateUserForm(UserCreationForm):
@@ -35,12 +35,18 @@ class UserInfoForm(ModelForm):
 
 class RoleForm(ModelForm):
     class Meta:
-        model = Role
-        fields = '__all__'
+        model = Group
+        fields = ['name']
 
 
 class BundleForm(ModelForm):
     class Meta:
         model = Bundle
+        fields = '__all__'
+
+
+class ScheduleForm(ModelForm):
+    class Meta:
+        model = Schedule
         fields = '__all__'
 

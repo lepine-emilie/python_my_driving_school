@@ -52,11 +52,11 @@
         </tr>
         </thead>
         <tbody>
-        {% for i in appointments %}
+        {% for i in schedule %}
         <tr>
             <td>{{i.date_start}}</td>
             <td>{{i.place}}</td>
-            <td>Instructor Name</td>
+            <td>{{i.instructor_id.first_name}}</td>
         </tr>
         {% endfor %}
         </tbody>
